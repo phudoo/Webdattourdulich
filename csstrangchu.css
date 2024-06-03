@@ -1,0 +1,79 @@
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Basic styling for body */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Header styles */
+header {
+  background-color: transparent; /* Đặt màu nền của header thành trong suốt */
+  color: greenyellow; /* Màu chữ của header */
+  padding: 1rem 0;
+}
+
+header nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+header nav ul li {
+  margin: 0 1rem;
+}
+
+header nav ul li a {
+  color: green;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Heading styles */
+h1, h2 {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+/* Link styles */
+a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Grid layout for tour and hotel items */
+.tour-grid, .hotel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.tour-item, .hotel-item {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Avatar (circular image) styles */
+.avatar {
+  border-radius: 50%;
+}
+
+
