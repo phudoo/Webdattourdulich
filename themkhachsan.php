@@ -9,16 +9,17 @@ if (!isset($_SESSION['tentaikhoan']) || $_SESSION['tentaikhoan'] != 'admin') {
     exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    $tentour = $_POST['tentour'];
-    $diadiem = $_POST['diadiem'];
-    $thoigian = $_POST['thoigian'];
-    $giave = $_POST['giave'];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tenkhachsan'])) {
+    $tenkhachsan = $_POST['tenkhachsan'];
+    $diachi = $_POST['diachi'];
+    $sophong = $_POST['sophong'];
+    $loaiphong = $_POST['loaiphong'];
+    $giaphong = $_POST['giaphong'];
     $hinhanh = $_FILES['hinhanh']['name'];
 
     // Kiểm tra và upload hình ảnh
     if (!empty($hinhanh)) {
-        $target_dir = "images/TOUR/";
+        $target_dir = "images/KS/";
         $target_file = $target_dir . basename($hinhanh);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -55,8 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             echo "File không được upload.";
         // nếu mọi thứ ok, cố gắng upload file
         } else {
-            if (move_uploaded_file($_FILES["hinhanh"]["tmp_name"], $target_dir . $tentour . '.' . $imageFileType)) {
-                $hinhanh = $tentour . '.' . $imageFileType;
+            if (move_uploaded_file($_FILES["hinhanh"]["tmp_name"], $target_dir . $tenkhachsan . '.' . $imageFileType)) {
+                $hinhanh = $tenkhachsan . '.' . $imageFileType;
                 echo "File ". htmlspecialchars($hinhanh). " đã được upload.";
             } else {
                 echo "Có lỗi khi upload file.";
@@ -64,15 +65,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         }
     }
 
-    // Thêm tour du lịch vào cơ sở dữ liệu
-    $sql = "INSERT INTO tours (tentour, diadiem, thoigian, giave, hinhanh) VALUES (?, ?, ?, ?, ?)";
+    // Thực hiện thêm khách sạn vào cơ sở dữ liệu
+    $sql = "INSERT INTO khachsan (tenkhachsan, diachi, sophong, loaiphong, giaphong, hinhanh) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssss", $tentour, $diadiem, $thoigian, $giave, $hinhanh);
+    $stmt->bind_param("ssisss", $tenkhachsan, $diachi, $sophong, $loaiphong, $giaphong, $hinhanh);
 
     if ($stmt->execute()) {
-        echo "Thêm tour du lịch thành công.";
+        echo "Thêm khách sạn thành công.";
     } else {
-        echo "Có lỗi xảy ra khi thêm tour du lịch: " . $conn->error;
+        echo "Có lỗi xảy ra khi thêm khách sạn: " . $conn->error;
     }
 
     $stmt->close();
@@ -80,33 +81,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Thêm Mới Tour Du Lịch</title>
+  <title>Thêm Mới Khách Sạn</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2>Thêm Mới Tour Du Lịch</h2>
+  <h2>Thêm Mới Khách Sạn</h2>
   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
-    <label for="tentour">Tên Tour:</label>
-    <input type="text" name="tentour" id="tentour" required>
+    <label for="tenkhachsan">Tên Khách Sạn:</label>
+    <input type="text" name="tenkhachsan" id="tenkhachsan" required>
     <br>
-    <label for="diadiem">Địa Điểm:</label>
-    <input type="text" name="diadiem" id="diadiem" required>
+    <label for="diachi">Địa Chỉ:</label>
+    <input type="text" name="diachi" id="diachi" required>
     <br>
-    <label for="thoigian">Thời Gian:</label>
-    <input type="text" name="thoigian" id="thoigian" required>
+    <label for="sophong">Số Phòng:</label>
+    <input type="number" name="sophong" id="sophong" required>
     <br>
-    <label for="giave">Giá Vé:</label>
-    <input type="number" name="giave" id="giave" required>
+    <label for="loaiphong">Loại Phòng:</label>
+    <select name="loaiphong" id="loaiphong" required>
+        <option value="Đơn">Đơn</option>
+        <option value="Đôi">Đôi</option>
+    </select>
+    <br>
+    <label for="giaphong">Giá Phòng:</label>
+    <input type="number" name="giaphong" id="giaphong" required>
     <br>
     <label for="hinhanh">Hình Ảnh:</label>
     <input type="file" name="hinhanh" id="hinhanh" accept="image/*" required>
     <br>
-    <button type="submit" name="submit">Thêm Tour</button>
+    <button type="submit">Thêm Khách Sạn</button>
   </form>
 </body>
 </html>
