@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2024 at 12:20 PM
+-- Generation Time: Jun 09, 2024 at 01:11 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -158,7 +158,7 @@ INSERT INTO `taikhoan` (`tentaikhoan`, `matkhau`, `email`, `sdt`, `diachi`) VALU
 --
 
 CREATE TABLE `tours` (
-  `matour` varchar(20) NOT NULL,
+  `matour` int(20) NOT NULL,
   `tentour` varchar(100) NOT NULL,
   `diadiem` varchar(100) NOT NULL,
   `thoigian` varchar(50) NOT NULL,
@@ -171,29 +171,29 @@ CREATE TABLE `tours` (
 --
 
 INSERT INTO `tours` (`matour`, `tentour`, `diadiem`, `thoigian`, `giave`, `hinhanh`) VALUES
-('001', 'Bãi tắm Quy Nhơn 3 ngày 2 đêm', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 1500000, 'https://ik.imagekit.io/tvlk/blog/2022/02/dia-diem-du-lich-binh-dinh-3-819x1024.jpg?tr=dpr-2,w-675'),
-('002', ' Ghềnh Ráng Tiên Sa 2 ngày 1 đêm', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 1200000, 'https://ik.imagekit.io/tvlk/blog/2022/02/dia-diem-du-lich-binh-dinh-5-1024x1024.jpg?tr=dpr-2,w-675'),
-('003', 'Eo Gió 4 ngày 3 đêm', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 2000000, 'https://ik.imagekit.io/tvlk/blog/2022/02/dia-diem-du-lich-binh-dinh-8-819x1024.jpg?tr=dpr-2,w-675'),
-('004', 'Tour ABC', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 3000000, 'link_anh1.jpg'),
-('005', 'Tour XYZ', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2500000, 'link_anh2.jpg'),
-('006', 'Tour QWERTY', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 3500000, 'link_anh3.jpg'),
-('007', 'Tour Sunshine', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2200000, 'link_anh5.jpg'),
-('008', 'Tour 123', 'Quy Nhơn, Bình Định', '5 ngày 4 đêm', 4000000, 'link_anh4.jpg'),
-('009', 'Tour Sea View', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 2800000, 'link_anh6.jpg'),
-('010', 'Tour Blue Ocean', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 3200000, 'link_anh7.jpg'),
-('011', 'Tour Diamond', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2600000, 'link_anh8.jpg'),
-('012', 'Tour Green Forest', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 2900000, 'link_anh9.jpg'),
-('013', 'Tour Happy Days', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 3300000, 'link_anh10.jpg'),
-('014', 'Tour ABC 2', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 3000000, 'link_anh11.jpg'),
-('015', 'Tour XYZ 2', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2500000, 'link_anh12.jpg'),
-('016', 'Tour QWERTY 2', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 3500000, 'link_anh13.jpg'),
-('017', 'Tour 123 2', 'Quy Nhơn, Bình Định', '5 ngày 4 đêm', 4000000, 'link_anh14.jpg'),
-('018', 'Tour Sunshine 2', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2200000, 'link_anh15.jpg'),
-('019', 'Tour Sea View 2', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 2800000, 'link_anh16.jpg'),
-('020', 'Tour Blue Ocean 2', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 3200000, 'link_anh17.jpg'),
-('021', 'Tour Diamond 2', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2600000, 'link_anh18.jpg'),
-('022', 'Tour Green Forest 2', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 2900000, 'link_anh19.jpg'),
-('023', 'Tour Happy Days 2', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 3300000, 'link_anh20.jpg');
+(1, 'Bãi tắm Quy Nhơn 3 ngày 2 đêm', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 1500000, 'https://ik.imagekit.io/tvlk/blog/2022/02/dia-diem-du-lich-binh-dinh-3-819x1024.jpg?tr=dpr-2,w-675'),
+(2, ' Ghềnh Ráng Tiên Sa 2 ngày 1 đêm', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 1200000, 'https://ik.imagekit.io/tvlk/blog/2022/02/dia-diem-du-lich-binh-dinh-5-1024x1024.jpg?tr=dpr-2,w-675'),
+(3, 'Eo Gió 4 ngày 3 đêm', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 200000078, 'https://ik.imagekit.io/tvlk/blog/2022/02/dia-diem-du-lich-binh-dinh-8-819x1024.jpg?tr=dpr-2,w-675'),
+(4, 'Tour ABC', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 3000000, 'link_anh1.jpg'),
+(5, 'Tour XYZ', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2500000, 'link_anh2.jpg'),
+(6, 'Tour QWERTY', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 3500000, 'link_anh3.jpg'),
+(7, 'Tour Sunshine', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2200000, 'link_anh5.jpg'),
+(8, 'Tour 123', 'Quy Nhơn, Bình Định', '5 ngày 4 đêm', 4000000, 'link_anh4.jpg'),
+(9, 'Tour Sea View', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 2800000, 'link_anh6.jpg'),
+(10, 'Tour Blue Ocean', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 3200000, 'link_anh7.jpg'),
+(11, 'Tour Diamond', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2600000, 'link_anh8.jpg'),
+(12, 'Tour Green Forest', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 2900000, 'link_anh9.jpg'),
+(13, 'Tour Happy Days', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 3300000, 'link_anh10.jpg'),
+(14, 'Tour ABC 2', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 3000000, 'link_anh11.jpg'),
+(15, 'Tour XYZ 2', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2500000, 'link_anh12.jpg'),
+(16, 'Tour QWERTY 2', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 3500000, 'link_anh13.jpg'),
+(17, 'Tour 123 2', 'Quy Nhơn, Bình Định', '5 ngày 4 đêm', 4000000, 'link_anh14.jpg'),
+(18, 'Tour Sunshine 2', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2200000, 'link_anh15.jpg'),
+(19, 'Tour Sea View 2', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 2800000, 'link_anh16.jpg'),
+(20, 'Tour Blue Ocean 2', 'Quy Nhơn, Bình Định', '4 ngày 3 đêm', 3200000, 'link_anh17.jpg'),
+(21, 'Tour Diamond 2', 'Quy Nhơn, Bình Định', '2 ngày 1 đêm', 2600000, 'link_anh18.jpg'),
+(22, 'Tour Green Forest 2', 'Quy Nhơn, Bình Định', '3 ngày 2 đêm', 2900000, '22'),
+(25, '1', '1', '1', 1, '25');
 
 --
 -- Indexes for dumped tables
@@ -252,6 +252,12 @@ ALTER TABLE `dattour`
 --
 ALTER TABLE `khachsan`
   MODIFY `makhachsan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
+-- AUTO_INCREMENT for table `tours`
+--
+ALTER TABLE `tours`
+  MODIFY `matour` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
