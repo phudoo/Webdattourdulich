@@ -64,6 +64,8 @@ $result_hotels = $conn->query($sql_hotels);
   </table>
 
   <h2>Quản Lý Tour Du Lịch</h2>
+  <!-- Thêm nút "Tạo mới tour" -->
+  <a href="themtour.php" class="btn-create">Tạo mới tour</a>
   <table>
     <tr>
       <th>Mã Tour</th>
@@ -82,6 +84,10 @@ $result_hotels = $conn->query($sql_hotels);
         echo "<td>" . htmlspecialchars($row["diadiem"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["thoigian"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["giave"]) . "</td>";
+        echo '<td>
+                <a href="suatour.php?matour=' . $row["matour"] . '">Chỉnh Sửa</a>
+                <a href="xoatour.php?matour=' . $row["matour"] . '" onclick="return confirm(\'Bạn có chắc chắn muốn xóa tour này?\');">Xóa</a>
+              </td>'; // Thêm các nút Chỉnh Sửa và Xóa
         echo "</tr>";
       }
     } else {
