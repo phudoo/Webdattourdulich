@@ -68,7 +68,7 @@ $conn->close();
     <?php
     if(isset($tenkhachsan)) {
         echo "<h2>$tenkhachsan</h2>";
-        echo "<img src='$hinhanh' alt='Hình Ảnh Khách Sạn'>";
+        echo "<td><img src='images/KS/" . $row["hinhanh"] . ".PNG' alt='Hình Ảnh Khách Sạn'>";
         echo "<p><strong>Địa Chỉ:</strong> $diachi</p>";
         echo "<p><strong>Số Phòng:</strong> $sophong</p>";
         echo "<p><strong>Giá Phòng:</strong> $giaphong</p>";

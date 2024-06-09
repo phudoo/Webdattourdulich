@@ -41,6 +41,7 @@ $result_hotels = $conn->query($sql_hotels);
       <th>Email</th>
       <th>Số Điện Thoại</th>
       <th>Địa Chỉ</th>
+      <th>Hành Động</th>
     </tr>
     <?php
     if ($result_accounts->num_rows > 0) {
@@ -50,6 +51,10 @@ $result_hotels = $conn->query($sql_hotels);
         echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["sdt"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["diachi"]) . "</td>";
+        echo '<td>
+                <a href="suataikhoan.php?tentaikhoan=' . $row["tentaikhoan"] . '">Chỉnh Sửa</a>
+                <a href="xoataikhoan.php?tentaikhoan=' . $row["tentaikhoan"] . '" onclick="return confirm(\'Bạn có chắc chắn muốn xóa tài khoản này?\');">Xóa</a>
+              </td>'; // Thêm các nút Chỉnh Sửa và Xóa
         echo "</tr>";
       }
     } else {
@@ -66,6 +71,7 @@ $result_hotels = $conn->query($sql_hotels);
       <th>Địa Điểm</th>
       <th>Thời Gian</th>
       <th>Giá Vé</th>
+      <th>Hành Động</th>
     </tr>
     <?php
     if ($result_tours->num_rows > 0) {
@@ -86,6 +92,8 @@ $result_hotels = $conn->query($sql_hotels);
 
 
   <h2>Quản Lý Khách Sạn</h2>
+  <!-- Thêm nút "Tạo mới khách sạn" -->
+  <a href="themkhachsan.php" class="btn-create">Tạo mới khách sạn</a>
 <table>
   <tr>
     <th>Mã Khách Sạn</th>
@@ -94,6 +102,7 @@ $result_hotels = $conn->query($sql_hotels);
     <th>Số Phòng</th>
     <th>Loại Phòng</th>
     <th>Giá Phòng</th>
+    <th>Hành Động</th>
   </tr>
   <?php
   if ($result_hotels->num_rows > 0) {
@@ -105,6 +114,10 @@ $result_hotels = $conn->query($sql_hotels);
       echo "<td>" . htmlspecialchars($row["sophong"]) . "</td>";
       echo "<td>" . htmlspecialchars($row["loaiphong"]) . "</td>";
       echo "<td>" . htmlspecialchars($row["giaphong"]) . "</td>";
+      echo '<td>
+                <a href="suakhachsan.php?makhachsan=' . $row["makhachsan"] . '">Chỉnh Sửa</a>
+                <a href="xoakhachsan.php?makhachsan=' . $row["makhachsan"] . '" onclick="return confirm(\'Bạn có chắc chắn muốn xóa khách sạn này?\');">Xóa</a>
+              </td>'; // Thêm các nút Chỉnh Sửa và Xóa
       echo "</tr>";
     }
   } else {
