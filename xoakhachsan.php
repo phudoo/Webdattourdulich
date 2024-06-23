@@ -1,4 +1,5 @@
 <?php
+// Kết nối đến cơ sở dữ liệu
 include 'db.php';
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -13,21 +14,18 @@ if (isset($_GET['makhachsan'])) {
     $makhachsan = $_GET['makhachsan'];
 
     // Xóa khách sạn từ cơ sở dữ liệu
-    $sql_delete = "DELETE FROM khachsan WHERE makhachsan = ?";
-    $stmt = $conn->prepare($sql_delete);
-    $stmt->bind_param("s", $makhachsan);
-
-    if ($stmt->execute()) {
-        echo "Xóa khách sạn thành công.";
+    $sql = "DELETE FROM khachsan WHERE makhachsan = '$makhachsan'";
+    
+    if ($conn->query($sql) === TRUE) {
+        echo "Xóa khách sạn thành công!";
     } else {
-        echo "Có lỗi xảy ra khi xóa khách sạn.";
+        echo "Lỗi: " . $sql . "<br>" . $conn->error;
     }
-
-    $stmt->close();
-    $conn->close();
-    header("Location: quanly.php");
-    exit();
 } else {
-    echo "Không tìm thấy khách sạn để xóa.";
+    echo "Không có mã khách sạn để xóa.";
 }
+
+$conn->close();
+header("Location: quanly.php");
+    exit();
 ?>

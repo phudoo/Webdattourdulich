@@ -28,7 +28,7 @@ include 'db.php';
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td><img src='" . $row["hinhanh"] . "' alt='Hình Ảnh Tour' style='width: 150px; height: auto;'></td>";
+        echo "<td><img src='images/TOUR/" . $row["hinhanh"] . ".PNG' alt='Hình Ảnh Tour' style='width: 150px; height: auto;'></td>";
         echo "<td>" . $row["matour"] . "</td>";
         echo "<td>" . $row["tentour"] . "</td>";
         echo "<td>" . $row["diadiem"] . "</td>";

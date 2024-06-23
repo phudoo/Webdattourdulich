@@ -1,4 +1,5 @@
 <?php
+// Kết nối đến cơ sở dữ liệu
 include 'db.php';
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -9,25 +10,22 @@ if (!isset($_SESSION['tentaikhoan']) || $_SESSION['tentaikhoan'] != 'admin') {
     exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['matour'])) {
+if (isset($_GET['matour'])) {
     $matour = $_GET['matour'];
 
-    // Xóa tour du lịch từ cơ sở dữ liệu
-    $sql_delete = "DELETE FROM tours WHERE matour=?";
-    $stmt = $conn->prepare($sql_delete);
-    $stmt->bind_param("s", $matour);
-
-    if ($stmt->execute()) {
-        echo "Xóa tour du lịch thành công.";
+    // Xóa tour từ cơ sở dữ liệu
+    $sql = "DELETE FROM tours WHERE matour = '$matour'";
+    
+    if ($conn->query($sql) === TRUE) {
+        echo "Xóa tour thành công!";
     } else {
-        echo "Có lỗi xảy ra khi xóa tour du lịch.";
+        echo "Lỗi: " . $sql . "<br>" . $conn->error;
     }
-
-    $stmt->close();
-    $conn->close();
-    header("Location: quanly.php");
-    exit();
 } else {
-    echo "Không có mã tour được cung cấp để xóa.";
+    echo "Không có mã tour để xóa.";
 }
+
+$conn->close();
+header("Location: quanly.php");
+    exit();
 ?>

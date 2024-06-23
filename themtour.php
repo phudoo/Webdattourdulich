@@ -1,4 +1,5 @@
 <?php
+// Kết nối đến cơ sở dữ liệu
 include 'db.php';
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -9,79 +10,59 @@ if (!isset($_SESSION['tentaikhoan']) || $_SESSION['tentaikhoan'] != 'admin') {
     exit();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    $tentour = $_POST['tentour'];
-    $diadiem = $_POST['diadiem'];
-    $thoigian = $_POST['thoigian'];
-    $giave = $_POST['giave'];
-    $hinhanh = $_FILES['hinhanh']['name'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $matour = $_POST["matour"];
+    $tentour = $_POST["tentour"];
+    $diadiem = $_POST["diadiem"];
+    $thoigian = $_POST["thoigian"];
+    $giave = $_POST["giave"];
 
-    // Kiểm tra và upload hình ảnh
-    if (!empty($hinhanh)) {
-        $target_dir = "images/TOUR/";
-        $target_file = $target_dir . basename($hinhanh);
-        $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    // Kiểm tra mã tour đã tồn tại hay chưa
+    $check_sql = "SELECT * FROM tours WHERE matour = '$matour'";
+    $result = $conn->query($check_sql);
 
-        // Kiểm tra loại file hình ảnh
-        $check = getimagesize($_FILES["hinhanh"]["tmp_name"]);
-        if($check !== false) {
-            $uploadOk = 1;
-        } else {
-            echo "File không phải là hình ảnh.";
-            $uploadOk = 0;
-        }
-
-        // Kiểm tra xem file đã tồn tại
-        if (file_exists($target_file)) {
-            echo "File đã tồn tại.";
-            $uploadOk = 0;
-        }
-
-        // Kiểm tra kích thước file
-        if ($_FILES["hinhanh"]["size"] > 5000000) {
-            echo "File quá lớn.";
-            $uploadOk = 0;
-        }
-
-        // Chỉ cho phép các định dạng hình ảnh nhất định
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-            echo "Chỉ chấp nhận các file JPG, JPEG, PNG & GIF.";
-            $uploadOk = 0;
-        }
-
-        // Kiểm tra xem $uploadOk có bị đặt thành 0 bởi lỗi không
-        if ($uploadOk == 0) {
-            echo "File không được upload.";
-        // nếu mọi thứ ok, cố gắng upload file
-        } else {
-            if (move_uploaded_file($_FILES["hinhanh"]["tmp_name"], $target_dir . $tentour . '.' . $imageFileType)) {
-                $hinhanh = $tentour . '.' . $imageFileType;
-                echo "File ". htmlspecialchars($hinhanh). " đã được upload.";
-            } else {
-                echo "Có lỗi khi upload file.";
-            }            
-        }
-    }
-
-    // Thêm tour du lịch vào cơ sở dữ liệu
-    $sql = "INSERT INTO tours (tentour, diadiem, thoigian, giave, hinhanh) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssss", $tentour, $diadiem, $thoigian, $giave, $hinhanh);
-
-    if ($stmt->execute()) {
-        echo "Thêm tour du lịch thành công.";
+    if ($result->num_rows > 0) {
+        echo "Mã tour đã tồn tại. Vui lòng nhập mã khác.";
     } else {
-        echo "Có lỗi xảy ra khi thêm tour du lịch: " . $conn->error;
+        // Xử lý file hình ảnh
+        $target_dir = "images/TOUR/";
+        
+        // Kiểm tra thư mục uploads có tồn tại không, nếu không thì tạo mới
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0777, true);
+        }
+        
+        $imageFileType = strtolower(pathinfo($_FILES["hinhanh"]["name"], PATHINFO_EXTENSION));
+        $target_file = $target_dir . $matour . '.' . $imageFileType;
+        $name_file = $matour . '.' . $imageFileType;
+        
+        if (move_uploaded_file($_FILES["hinhanh"]["tmp_name"], $target_file)) {
+            // Lưu thông tin tour vào cơ sở dữ liệu
+            $sql = "INSERT INTO tours (matour, tentour, diadiem, thoigian, giave, hinhanh) VALUES ('$matour', '$tentour', '$diadiem', '$thoigian', $giave, '$name_file')";
+            
+            if ($conn->query($sql) === TRUE) {
+                echo "Thêm mới tour du lịch thành công!";
+            } else {
+                echo "Lỗi: " . $sql . "<br>" . $conn->error;
+            }
+        } else {
+            echo "Có lỗi xảy ra khi upload hình ảnh.";
+        }
     }
-
-    $stmt->close();
-    $conn->close();
 }
+
+$conn->close();
 ?>
 
 
+
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thêm Mới Tour Du Lịch</title>
+  <link rel="stylesheet" href="styles.css">
+</head><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -91,6 +72,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 <body>
   <h2>Thêm Mới Tour Du Lịch</h2>
   <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+    <label for="matour">Mã Tour:</label>
+    <input type="text" name="matour" id="matour" required>
+    <br>
     <label for="tentour">Tên Tour:</label>
     <input type="text" name="tentour" id="tentour" required>
     <br>
@@ -110,4 +94,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
   </form>
 </body>
 </html>
+
 
