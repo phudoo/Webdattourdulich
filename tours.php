@@ -7,7 +7,7 @@ include 'db.php';
 <head>
   <meta charset="UTF-8">
   <title>Danh Sách Tour</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <header> </header>
 <body>

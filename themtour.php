@@ -67,7 +67,7 @@ $conn->close();
 <head>
   <meta charset="UTF-8">
   <title>Thêm Mới Tour Du Lịch</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <h2>Thêm Mới Tour Du Lịch</h2>

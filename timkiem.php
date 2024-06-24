@@ -36,7 +36,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <title>Kết quả tìm kiếm</title>
-    <link rel="stylesheet" href="csstrangchu.css">
+    <link rel="stylesheet" href="css/csstrangchu.css">
     <style>
         .pagination a {
             margin: 0 5px;

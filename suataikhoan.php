@@ -50,7 +50,7 @@ $conn->close();
 <head>
   <meta charset="UTF-8">
   <title>Chỉnh Sửa Tài Khoản</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <h2>Chỉnh Sửa Tài Khoản</h2>
