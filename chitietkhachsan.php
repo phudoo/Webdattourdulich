@@ -56,10 +56,21 @@ $conn->close();
 <header>
     <nav>
       <ul>
-        <li><a href="index.php">Trang Chủ</a></li>
-        <li><a href="khachsan.php">Danh Sách Khách Sạn</a></li>
-        <li><a href="dangky.php">Đăng Ký</a></li>
-        <li><a href="dangnhap.php">Đăng Nhập</a></li>
+      <li><a href="index.php">Trang Chủ</a></li>
+            <li><a href="tours.php">Danh Sách Tour</a></li>
+            <li><a href="khachsan.php">Khách Sạn</a></li>
+            <li>
+                <form action="timkiem.php" method="GET">
+                    <input type="text" name="keyword" placeholder="Nhập từ khóa tìm kiếm..." required>
+                    <label><input type="radio" name="filter" value="tour" checked> Tour</label>
+                    <label><input type="radio" name="filter" value="khachsan"> Khách Sạn</label>
+                    <select name="sort_order">
+                        <option value="asc">Giá từ thấp đến cao</option>
+                        <option value="desc">Giá từ cao đến thấp</option>
+                    </select>
+                    <button type="submit">Tìm Kiếm</button>
+                </form>
+            </li>
       </ul>
     </nav>
 </header>
@@ -75,6 +86,8 @@ $conn->close();
         echo "<button onclick='datPhong(" . htmlspecialchars($row["makhachsan"]) . ")'>Đặt Phòng</button>";
     }
     ?>
+      <button onclick="window.location.href='index.php'">Quay Về Trang Chủ</button>
 </div>
+
 </body>
 </html>

@@ -9,6 +9,7 @@ include 'db.php';
   <title>Danh Sách Khách Sạn</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <h1>Danh Sách Các Khách Sạn</h1>
   <table>

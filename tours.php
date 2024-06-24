@@ -9,11 +9,12 @@ include 'db.php';
   <title>Danh Sách Tour</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+<header> </header>
 <body>
   <h1>Danh Sách Các Tour Du Lịch</h1>
   <table>
     <tr>
-        <th></th>
+      <th></th>
       <th>Mã Tour</th>
       <th>Tên Tour</th>
       <th>Địa Điểm</th>
@@ -28,7 +29,7 @@ include 'db.php';
     if ($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td><img src='images/TOUR/" . $row["hinhanh"] . ".PNG' alt='Hình Ảnh Tour' style='width: 150px; height: auto;'></td>";
+        echo "<td><img src='images/TOUR/" . $row["hinhanh"] . ".PNG' alt='Hình Ảnh Tour'></td>";
         echo "<td>" . $row["matour"] . "</td>";
         echo "<td>" . $row["tentour"] . "</td>";
         echo "<td>" . $row["diadiem"] . "</td>";

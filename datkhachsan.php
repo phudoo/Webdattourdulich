@@ -37,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<p><strong>Số Điện Thoại:</strong> $sodienthoai</p>";
                 echo "<p><strong>Tên Tài Khoản:</strong> $tentaikhoan</p>";
                 echo "<p><strong>Giá Phòng:</strong> $gia_phong</p>";
+                echo "<p>Đặt phòng thành công!</p>";
             } else {
                 echo "<p>Có lỗi xảy ra khi đặt phòng. Vui lòng thử lại.</p>";
             }
@@ -89,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="sodienthoai">Số Điện Thoại:</label>
         <input type="text" id="sodienthoai" name="sodienthoai" required><br><br>
         <button type="submit">Đặt Phòng</button>
+       
     </form>
 </body>
 </html>
@@ -101,3 +103,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        /* Cải thiện độ phân biệt giữa nội dung và nền */
+        border: 1px solid #ddd;
+    }
+
+    h2 {
+        text-align: center;
+        color: #1e88e5;
+        margin-bottom: 20px; /* Tăng khoảng cách giữa tiêu đề và nội dung */
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px; /* Giảm khoảng cách giữa các nhãn */
+        color: #555; /* Màu sắc nhãn nhạt hơn */
+    }
+
+    button[type="submit"] {
+        background-color: #1e88e5;
+        color: #fff;
+        border: none;
+        padding: 12px 24px;
+        cursor: pointer;
+        border-radius: 3px;
+        transition: background-color 0.3s ease;
+        font-size: 16px; /* Điều chỉnh cỡ chữ cho nút submit */
+    }
+
+    button[type="submit"]:hover {
+        background-color: #1565c0;
+    }
+
+    .error-message {
+        color: red;
+        margin-top: 10px;
+        font-size: 14px; /* Điều chỉnh cỡ chữ cho thông báo lỗi */
+    }
+</style>

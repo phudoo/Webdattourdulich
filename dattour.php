@@ -31,14 +31,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<p><strong>Số Lượng Người:</strong> $quantity</p>";
                 echo "<p><strong>Giá Vé:</strong> $gia_ve</p>";
                 echo "<p>Đặt tour thành công!</p>";
+            
+                
             } else {
-                echo "<p>Có lỗi xảy ra khi đặt tour: " . $conn->error . "</p>";
+                echo "<p class='error-message'>Có lỗi xảy ra khi đặt tour: " . $conn->error . "</p>";
             }
         } else {
-            echo "<p>Không tìm thấy thông tin của tour.</p>";
+            echo "<p class='error-message'>Không tìm thấy thông tin của tour.</p>";
         }
     } else {
-        echo "<p>Không có mã tour được chọn.</p>";
+        echo "<p class='error-message'>Không có mã tour được chọn.</p>";
     }
 } else {
     // Kiểm tra xem có mã tour được chọn không
@@ -54,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $row = $result->fetch_assoc();
             $tentaikhoan = isset($_SESSION['tentaikhoan']) ? $_SESSION['tentaikhoan'] : 'Guest';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,6 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Đặt Tour</title>
 </head>
 <body>
+<div class="container">
     <h2>Thông Tin Tour</h2>
     <p><strong>Mã Tour:</strong> <?php echo $row["matour"]; ?></p>
     <p><strong>Tên Tour:</strong> <?php echo $row["tentour"]; ?></p>
@@ -76,19 +80,81 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <input type="hidden" name="matour" value="<?php echo $row["matour"]; ?>">
         <label for="start_date">Ngày Bắt Đầu:</label>
-        <input type="date" id="start_date" name="start_date" required><br><br>
+        <input type="date" id="start_date" name="start_date" required><br>
         <label for="quantity">Số Lượng Người:</label>
-        <input type="number" id="quantity" name="quantity" min="1" required><br><br>
+        <input type="number" id="quantity" name="quantity" min="1" required><br>
         <button type="submit">Đặt Tour</button>
     </form>
+</div>
 </body>
 </html>
 <?php
         } else {
-            echo "<p>Không tìm thấy thông tin của tour.</p>";
+            echo "<p class='error-message'>Không tìm thấy thông tin của tour.</p>";
         }
     } else {
-        echo "<p>Không có mã tour được chọn.</p>";
+        echo "<p class='error-message'>Không có mã tour được chọn.</p>";
     }
 }
 ?>
+
+<style> 
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #1e88e5;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+
+
+button[type="submit"] {
+    background-color: #1e88e5;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #1565c0;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+</style>
