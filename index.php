@@ -114,7 +114,7 @@ $hotelOffset = ($currentHotelPage - 1) * $itemsPerPage;
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo "<div class='tour-item'>";
-            echo "<img src='" . $row["hinhanh"] . "' alt='Hình Ảnh Tour' style='width: 150px; height: auto;'>";
+            echo "<td><img src='images/TOUR/" . $row["hinhanh"] . "' alt='Hình Ảnh Tour' style='width: 150px; height: auto;'>";
             echo "<p><strong>Mã Tour:</strong> " . $row["matour"] . "</p>";
             echo "<p><strong>Tên Tour:</strong> " . $row["tentour"] . "</p>";
             echo "<p><strong>Địa Điểm:</strong> " . $row["diadiem"] . "</p>";
@@ -143,7 +143,7 @@ $hotelOffset = ($currentHotelPage - 1) * $itemsPerPage;
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             echo "<div class='hotel-item'>";
-            echo "<td><img src='images/KS/" . $row["hinhanh"] . ".PNG' alt='Hình Ảnh Khách Sạn' style='width: 150px; height: auto;'></td>";
+            echo "<td><img src='images/KS/" . $row["hinhanh"] . "' alt='Hình Ảnh Khách Sạn' style='width: 150px; height: auto;'></td>";
             echo "<p><strong>Tên Khách Sạn:</strong> " . $row["tenkhachsan"] . "</p>";
             echo "<p><strong>Địa Chỉ:</strong> " . $row["diachi"] . "</p>";
             echo "<p><strong>Loại Phòng:</strong> " . $row["loaiphong"] . "</p>";
