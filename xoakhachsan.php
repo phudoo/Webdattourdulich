@@ -16,16 +16,19 @@ if (isset($_GET['makhachsan'])) {
     // Xóa khách sạn từ cơ sở dữ liệu
     $sql = "DELETE FROM khachsan WHERE makhachsan = '$makhachsan'";
     
-    if ($conn->query($sql) === TRUE) {
+    if (mysqli_query($conn, $sql)) {
         echo "Xóa khách sạn thành công!";
     } else {
-        echo "Lỗi: " . $sql . "<br>" . $conn->error;
+        echo "Lỗi: " . mysqli_error($conn);
     }
 } else {
     echo "Không có mã khách sạn để xóa.";
 }
 
-$conn->close();
-header("Location: quanly.php");
-    exit();
+// Đóng kết nối
+mysqli_close($conn);
+
+// Chuyển hướng về trang quản lý
+header("Location: quanly_khachsan.php");
+exit();
 ?>

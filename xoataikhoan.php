@@ -13,19 +13,16 @@ if (isset($_GET['tentaikhoan'])) {
     $tentaikhoan = $_GET['tentaikhoan'];
 
     // Xóa tài khoản từ cơ sở dữ liệu
-    $sql_delete = "DELETE FROM taikhoan WHERE tentaikhoan = ?";
-    $stmt = $conn->prepare($sql_delete);
-    $stmt->bind_param("s", $tentaikhoan);
-
-    if ($stmt->execute()) {
+    $sql_delete = "DELETE FROM taikhoan WHERE tentaikhoan = '$tentaikhoan'";
+    
+    if (mysqli_query($conn, $sql_delete)) {
         echo "Xóa tài khoản thành công.";
     } else {
-        echo "Có lỗi xảy ra khi xóa tài khoản.";
+        echo "Có lỗi xảy ra khi xóa tài khoản: " . mysqli_error($conn);
     }
 
-    $stmt->close();
-    $conn->close();
-    header("Location: quanly.php");
+    mysqli_close($conn);
+    header("Location: quanly_taikhoan.php");
     exit();
 } else {
     echo "Không tìm thấy tài khoản để xóa.";

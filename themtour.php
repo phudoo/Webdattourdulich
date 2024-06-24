@@ -19,9 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Kiểm tra mã tour đã tồn tại hay chưa
     $check_sql = "SELECT * FROM tours WHERE matour = '$matour'";
-    $result = $conn->query($check_sql);
+    $result = mysqli_query($conn, $check_sql);
 
-    if ($result->num_rows > 0) {
+    if (mysqli_num_rows($result) > 0) {
         echo "Mã tour đã tồn tại. Vui lòng nhập mã khác.";
     } else {
         // Xử lý file hình ảnh
@@ -40,10 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Lưu thông tin tour vào cơ sở dữ liệu
             $sql = "INSERT INTO tours (matour, tentour, diadiem, thoigian, giave, hinhanh) VALUES ('$matour', '$tentour', '$diadiem', '$thoigian', $giave, '$name_file')";
             
-            if ($conn->query($sql) === TRUE) {
+            if (mysqli_query($conn, $sql)) {
                 echo "Thêm mới tour du lịch thành công!";
             } else {
-                echo "Lỗi: " . $sql . "<br>" . $conn->error;
+                echo "Lỗi: " . mysqli_error($conn);
             }
         } else {
             echo "Có lỗi xảy ra khi upload hình ảnh.";
@@ -51,18 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$conn->close();
+mysqli_close($conn);
 ?>
 
-
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Thêm Mới Tour Du Lịch</title>
-  <link rel="stylesheet" href="styles.css">
-</head><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -71,7 +63,7 @@ $conn->close();
 </head>
 <body>
   <h2>Thêm Mới Tour Du Lịch</h2>
-  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+  <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>" enctype="multipart/form-data">
     <label for="matour">Mã Tour:</label>
     <input type="text" name="matour" id="matour" required>
     <br>
@@ -94,5 +86,3 @@ $conn->close();
   </form>
 </body>
 </html>
-
-

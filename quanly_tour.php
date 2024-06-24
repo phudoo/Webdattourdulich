@@ -12,7 +12,7 @@ if (!isset($_SESSION['tentaikhoan']) || $_SESSION['tentaikhoan'] != 'admin') {
 
 // Lấy danh sách tour du lịch từ cơ sở dữ liệu
 $sql_tours = "SELECT * FROM tours";
-$result_tours = $conn->query($sql_tours);
+$result_tours = mysqli_query($conn, $sql_tours);
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ $result_tours = $conn->query($sql_tours);
 <head>
   <meta charset="UTF-8">
   <title>Quản Lý Tour Du Lịch</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <h2>Quản Lý Tour Du Lịch</h2>
@@ -35,14 +35,14 @@ $result_tours = $conn->query($sql_tours);
       <th>Hành Động</th>
     </tr>
     <?php
-    if ($result_tours->num_rows > 0) {
-      while($row = $result_tours->fetch_assoc()) {
+    if (mysqli_num_rows($result_tours) > 0) {
+      while($row = mysqli_fetch_assoc($result_tours)) {
         echo "<tr>";
-        echo "<td>" . htmlspecialchars($row["matour"]) . "</td>";
-        echo "<td>" . htmlspecialchars($row["tentour"]) . "</td>";
-        echo "<td>" . htmlspecialchars($row["diadiem"]) . "</td>";
-        echo "<td>" . htmlspecialchars($row["thoigian"]) . "</td>";
-        echo "<td>" . htmlspecialchars($row["giave"]) . "</td>";
+        echo "<td>" . $row["matour"] . "</td>";
+        echo "<td>" . $row["tentour"] . "</td>";
+        echo "<td>" . $row["diadiem"] . "</td>";
+        echo "<td>" . $row["thoigian"] . "</td>";
+        echo "<td>" . $row["giave"] . "</td>";
         echo '<td>
                 <a href="suatour.php?matour=' . $row["matour"] . '">Chỉnh Sửa</a>
                 <a href="xoatour.php?matour=' . $row["matour"] . '" onclick="return confirm(\'Bạn có chắc chắn muốn xóa tour này?\');">Xóa</a>
@@ -50,7 +50,7 @@ $result_tours = $conn->query($sql_tours);
         echo "</tr>";
       }
     } else {
-      echo "<tr><td colspan='5'>Không có tour nào.</td></tr>";
+      echo "<tr><td colspan='6'>Không có tour nào.</td></tr>";
     }
     ?>
   </table>

@@ -12,7 +12,7 @@ if (!isset($_SESSION['tentaikhoan']) || $_SESSION['tentaikhoan'] != 'admin') {
 
 // Lấy danh sách tài khoản từ cơ sở dữ liệu
 $sql_accounts = "SELECT * FROM taikhoan";
-$result_accounts = $conn->query($sql_accounts);
+$result_accounts = mysqli_query($conn, $sql_accounts);
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ $result_accounts = $conn->query($sql_accounts);
 <head>
   <meta charset="UTF-8">
   <title>Quản Lý Tài Khoản</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <h2>Quản Lý Tài Khoản</h2>
@@ -33,13 +33,13 @@ $result_accounts = $conn->query($sql_accounts);
       <th>Hành Động</th>
     </tr>
     <?php
-    if ($result_accounts->num_rows > 0) {
-      while($row = $result_accounts->fetch_assoc()) {
+    if (mysqli_num_rows($result_accounts) > 0) {
+      while($row = mysqli_fetch_assoc($result_accounts)) {
         echo "<tr>";
-        echo "<td>" . htmlspecialchars($row["tentaikhoan"]) . "</td>";
-        echo "<td>" . htmlspecialchars($row["email"]) . "</td>";
-        echo "<td>" . htmlspecialchars($row["sdt"]) . "</td>";
-        echo "<td>" . htmlspecialchars($row["diachi"]) . "</td>";
+        echo "<td>" . $row["tentaikhoan"] . "</td>";
+        echo "<td>" . $row["email"] . "</td>";
+        echo "<td>" . $row["sdt"] . "</td>";
+        echo "<td>" . $row["diachi"] . "</td>";
         echo '<td>
                 <a href="suataikhoan.php?tentaikhoan=' . $row["tentaikhoan"] . '">Chỉnh Sửa</a>
                 <a href="xoataikhoan.php?tentaikhoan=' . $row["tentaikhoan"] . '" onclick="return confirm(\'Bạn có chắc chắn muốn xóa tài khoản này?\');">Xóa</a>
@@ -47,7 +47,7 @@ $result_accounts = $conn->query($sql_accounts);
         echo "</tr>";
       }
     } else {
-      echo "<tr><td colspan='4'>Không có tài khoản nào.</td></tr>";
+      echo "<tr><td colspan='5'>Không có tài khoản nào.</td></tr>";
     }
     ?>
   </table>

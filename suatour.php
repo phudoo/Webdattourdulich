@@ -18,14 +18,14 @@ if (!$matour) {
 
 // Fetch the tour data
 $sql = "SELECT * FROM tours WHERE matour = '$matour'";
-$result = $conn->query($sql);
+$result = mysqli_query($conn, $sql);
 
-if ($result->num_rows == 0) {
+if (mysqli_num_rows($result) == 0) {
     echo "Không tìm thấy tour.";
     exit();
 }
 
-$row = $result->fetch_assoc();
+$row = mysqli_fetch_assoc($result);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tentour = $_POST["tentour"];
@@ -58,14 +58,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Cập nhật thông tin tour vào cơ sở dữ liệu
     $sql = "UPDATE tours SET tentour='$tentour', diadiem='$diadiem', thoigian='$thoigian', giave=$giave, hinhanh='$hinhanh' WHERE matour='$matour'";
     
-    if ($conn->query($sql) === TRUE) {
+    if (mysqli_query($conn, $sql)) {
         echo "Cập nhật tour du lịch thành công!";
     } else {
-        echo "Lỗi: " . $sql . "<br>" . $conn->error;
+        echo "Lỗi: " . mysqli_error($conn);
     }
 }
 
-$conn->close();
+mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
@@ -77,28 +77,29 @@ $conn->close();
 </head>
 <body>
   <h2>Chỉnh Sửa Tour Du Lịch</h2>
-  <form method="post" action="suatour.php?matour=<?php echo htmlspecialchars($row['matour']); ?>" enctype="multipart/form-data">
-    <input type="hidden" name="matour" value="<?php echo htmlspecialchars($row['matour']); ?>">
+  <form method="post" action="suatour.php?matour=<?php echo $row['matour']; ?>" enctype="multipart/form-data">
+    <input type="hidden" name="matour" value="<?php echo $row['matour']; ?>">
     <label for="tentour">Tên Tour:</label>
-    <input type="text" name="tentour" id="tentour" value="<?php echo htmlspecialchars($row['tentour']); ?>" required>
+    <input type="text" name="tentour" id="tentour" value="<?php echo $row['tentour']; ?>" required>
     <br>
     <label for="diadiem">Địa Điểm:</label>
-    <input type="text" name="diadiem" id="diadiem" value="<?php echo htmlspecialchars($row['diadiem']); ?>" required>
+    <input type="text" name="diadiem" id="diadiem" value="<?php echo $row['diadiem']; ?>" required>
     <br>
     <label for="thoigian">Thời Gian:</label>
-    <input type="text" name="thoigian" id="thoigian" value="<?php echo htmlspecialchars($row['thoigian']); ?>" required>
+    <input type="text" name="thoigian" id="thoigian" value="<?php echo $row['thoigian']; ?>" required>
     <br>
     <label for="giave">Giá Vé:</label>
-    <input type="number" name="giave" id="giave" value="<?php echo htmlspecialchars($row['giave']); ?>" required>
+    <input type="number" name="giave" id="giave" value="<?php echo $row['giave']; ?>" required>
     <br>
     <label for="hinhanh">Hình Ảnh:</label>
     <input type="file" name="hinhanh" id="hinhanh">
     <br>
     <?php if (!empty($row['hinhanh'])): ?>
-        <img src="images/TOUR/<?php echo htmlspecialchars($row['hinhanh']); ?>" alt="Hình ảnh tour du lịch" style="max-width: 200px; max-height: 200px;">
+        <img src="images/TOUR/<?php echo $row['hinhanh']; ?>" alt="Hình ảnh tour du lịch" style="max-width: 200px; max-height: 200px;">
     <?php endif; ?>
     <br>
     <button type="submit">Lưu Thay Đổi</button>
   </form>
 </body>
 </html>
+

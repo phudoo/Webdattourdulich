@@ -20,9 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Kiểm tra mã khách sạn đã tồn tại hay chưa
     $check_sql = "SELECT * FROM khachsan WHERE makhachsan = '$makhachsan'";
-    $result = $conn->query($check_sql);
+    $result = mysqli_query($conn, $check_sql);
 
-    if ($result->num_rows > 0) {
+    if (mysqli_num_rows($result) > 0) {
         echo "Mã khách sạn đã tồn tại. Vui lòng nhập mã khác.";
     } else {
         // Xử lý file hình ảnh
@@ -41,19 +41,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Lưu thông tin khách sạn vào cơ sở dữ liệu
             $sql = "INSERT INTO khachsan (makhachsan, tenkhachsan, diachi, sophong, loaiphong, giaphong, hinhanh) VALUES ('$makhachsan', '$tenkhachsan', '$diachi', $sophong, '$loaiphong', $giaphong, '$name_file')";
             
-            if ($conn->query($sql) === TRUE) {
+            if (mysqli_query($conn, $sql)) {
                 echo "Thêm mới khách sạn thành công!";
             } else {
-                echo "Lỗi: " . $sql . "<br>" . $conn->error;
+                echo "Lỗi: " . $sql . "<br>" . mysqli_error($conn);
             }
         } else {
             echo "Có lỗi xảy ra khi upload hình ảnh.";
         }
     }
-    }
+}
 
-    $conn->close();
-    ?>
+mysqli_close($conn);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
   <h2>Thêm Mới Khách Sạn</h2>
-  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
+  <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>" enctype="multipart/form-data">
     <label for="makhachsan">Mã Khách Sạn:</label>
     <input type="text" name="makhachsan" id="makhachsan" required>
     <br>

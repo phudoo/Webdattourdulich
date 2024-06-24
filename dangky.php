@@ -23,30 +23,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       // Kiểm tra xem tên tài khoản đã tồn tại chưa
       $sql_check = "SELECT * FROM taikhoan WHERE tentaikhoan='$tentaikhoan'";
-      $result_check = $conn->query($sql_check);
+      $result_check = mysqli_query($conn, $sql_check);
 
-      if ($result_check->num_rows > 0) {
+      if (mysqli_num_rows($result_check) > 0) {
         // Nếu tên tài khoản đã tồn tại, hiển thị thông báo lỗi
         $_SESSION['register_message'] = "Tên tài khoản đã tồn tại. Vui lòng chọn tên tài khoản khác.";
       } else {
         // Nếu tên tài khoản chưa tồn tại và đạt điều kiện, chèn dữ liệu mới
         $sql = "INSERT INTO taikhoan (tentaikhoan, matkhau, email, sdt, diachi) VALUES ('$tentaikhoan', '$matkhau', '$email', '$sdt', '$diachi')";
 
-        if ($conn->query($sql) === TRUE) {
+        if (mysqli_query($conn, $sql)) {
           // Lưu thông báo đăng ký thành công vào session
           $_SESSION['register_message'] = "Đăng ký tài khoản thành công!";
           // Chuyển hướng đến trang đăng nhập sau khi đăng ký thành công
           header("Location: dangnhap.php");
           exit();
         } else {
-          echo "Lỗi: " . $sql . "<br>" . $conn->error;
+          echo "Lỗi: " . $sql . "<br>" . mysqli_error($conn);
         }
       }
     }
   }
-  $conn->close();
+  mysqli_close($conn);
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

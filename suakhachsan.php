@@ -42,23 +42,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Cập nhật thông tin khách sạn vào cơ sở dữ liệu
     $sql = "UPDATE khachsan SET tenkhachsan='$tenkhachsan', diachi='$diachi', sophong=$sophong, loaiphong='$loaiphong', giaphong=$giaphong $update_image WHERE makhachsan='$makhachsan'";
     
-    if ($conn->query($sql) === TRUE) {
+    if (mysqli_query($conn, $sql)) {
         echo "Cập nhật khách sạn thành công!";
     } else {
-        echo "Lỗi: " . $sql . "<br>" . $conn->error;
+        echo "Lỗi: " . $sql . "<br>" . mysqli_error($conn);
     }
 
-    $conn->close();
+    mysqli_close($conn);
 }
 
 // Lấy thông tin khách sạn từ cơ sở dữ liệu
 if (isset($_GET["makhachsan"])) {
     $makhachsan = $_GET["makhachsan"];
     $sql = "SELECT * FROM khachsan WHERE makhachsan='$makhachsan'";
-    $result = $conn->query($sql);
+    $result = mysqli_query($conn, $sql);
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
     } else {
         echo "Không tìm thấy khách sạn.";
         exit();
@@ -74,20 +74,20 @@ if (isset($_GET["makhachsan"])) {
 <head>
   <meta charset="UTF-8">
   <title>Chỉnh Sửa Khách Sạn</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <h2>Chỉnh Sửa Khách Sạn</h2>
   <form method="post" action="suakhachsan.php" enctype="multipart/form-data">
-    <input type="hidden" name="makhachsan" value="<?php echo htmlspecialchars($row['makhachsan']); ?>">
+    <input type="hidden" name="makhachsan" value="<?php echo $row['makhachsan']; ?>">
     <label for="tenkhachsan">Tên Khách Sạn:</label>
-    <input type="text" name="tenkhachsan" id="tenkhachsan" value="<?php echo htmlspecialchars($row['tenkhachsan']); ?>" required>
+    <input type="text" name="tenkhachsan" id="tenkhachsan" value="<?php echo $row['tenkhachsan']; ?>" required>
     <br>
     <label for="diachi">Địa Chỉ:</label>
-    <input type="text" name="diachi" id="diachi" value="<?php echo htmlspecialchars($row['diachi']); ?>" required>
+    <input type="text" name="diachi" id="diachi" value="<?php echo $row['diachi']; ?>" required>
     <br>
     <label for="sophong">Số Phòng:</label>
-    <input type="number" name="sophong" id="sophong" value="<?php echo htmlspecialchars($row['sophong']); ?>" required>
+    <input type="number" name="sophong" id="sophong" value="<?php echo $row['sophong']; ?>" required>
     <br>
     <label for="loaiphong">Loại Phòng:</label>
     <select name="loaiphong" id="loaiphong" required>
@@ -96,13 +96,13 @@ if (isset($_GET["makhachsan"])) {
     </select>
     <br>
     <label for="giaphong">Giá Phòng:</label>
-    <input type="number" name="giaphong" id="giaphong" value="<?php echo htmlspecialchars($row['giaphong']); ?>" required>
+    <input type="number" name="giaphong" id="giaphong" value="<?php echo $row['giaphong']; ?>" required>
     <br>
     <label for="hinhanh">Hình Ảnh:</label>
     <input type="file" name="hinhanh" id="hinhanh">
     <br>
     <?php if (!empty($row['hinhanh'])): ?>
-        <img src="images/KS/<?php echo htmlspecialchars($row['hinhanh']); ?>" alt="Hình ảnh khách sạn" style="max-width: 200px; max-height: 200px;">
+        <img src="images/KS/<?php echo $row['hinhanh']; ?>" alt="Hình ảnh khách sạn" style="max-width: 200px; max-height: 200px;">
     <?php endif; ?>
     <br>
     <button type="submit">Lưu Thay Đổi</button>

@@ -16,16 +16,16 @@ if (isset($_GET['matour'])) {
     // Xóa tour từ cơ sở dữ liệu
     $sql = "DELETE FROM tours WHERE matour = '$matour'";
     
-    if ($conn->query($sql) === TRUE) {
+    if (mysqli_query($conn, $sql)) {
         echo "Xóa tour thành công!";
     } else {
-        echo "Lỗi: " . $sql . "<br>" . $conn->error;
+        echo "Lỗi: " . mysqli_error($conn);
     }
 } else {
     echo "Không có mã tour để xóa.";
 }
 
-$conn->close();
+mysqli_close($conn);
 header("Location: quanly.php");
-    exit();
+exit();
 ?>

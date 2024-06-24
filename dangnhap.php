@@ -1,19 +1,18 @@
 <?php
-include 'db.php';
+session_start();
+include 'db.php'; // Kết nối CSDL
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["tentaikhoan"]) || empty($_POST["matkhau"])) {
         $_SESSION['login_message'] = "Vui lòng nhập đầy đủ tên tài khoản và mật khẩu.";
     } else {
-        $tentaikhoan = $_POST["tentaikhoan"];
-        $matkhau = $_POST["matkhau"];
+      $tentaikhoan = $_POST["tentaikhoan"];
+      $matkhau = $_POST["matkhau"];
 
-        $stmt = $conn->prepare("SELECT * FROM taikhoan WHERE tentaikhoan=? AND matkhau=?");
-        $stmt->bind_param("ss", $tentaikhoan, $matkhau);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $sql = "SELECT * FROM taikhoan WHERE tentaikhoan='$tentaikhoan' AND matkhau='$matkhau'";
+        $result = mysqli_query($conn, $sql);
 
-        if ($result->num_rows > 0) {
+        if (mysqli_num_rows($result) > 0) {
             $_SESSION['tentaikhoan'] = $tentaikhoan;
             if ($tentaikhoan === 'admin') {
                 header("Location: quanly.php");
@@ -26,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['login_message'] = "Sai tên tài khoản hoặc mật khẩu!";
         }
     }
-    $conn->close();
+    mysqli_close($conn);
 }
 ?>
 
