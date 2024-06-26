@@ -26,7 +26,8 @@ SET time_zone = "+00:00";
 --
 -- Cấu trúc bảng cho bảng `datkhachsan`
 --
-
+create database dbdulich;
+use dbdulich;
 CREATE TABLE `datkhachsan` (
   `madatkhachsan` int(11) NOT NULL,
   `makhachsan` int(11) NOT NULL,

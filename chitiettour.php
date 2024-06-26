@@ -78,15 +78,18 @@ $conn->close();
 <div class="tour-detail">
     <?php
     if (isset($tentour)) {
-        echo "<h2>$tentour</h2>";
-        echo "<img src='$hinhanh' alt='Hình Ảnh Tour'>";
-        echo "<p><strong>Địa Điểm:</strong> $diadiem</p>";
-        echo "<p><strong>Thời Gian:</strong> $thoigian</p>";
-        echo "<p><strong>Giá Vé:</strong> $giave</p>";
-        echo "<button onclick=\"window.location.href='dattour.php?matour=" . htmlspecialchars($matour) . "'\">Đặt Tour</button>";
+        echo "<div class='tour-item'>";
+        echo "<td><img src='images/TOUR/" . $row["hinhanh"] . "' >";
+        echo "<p><strong>Mã Tour:</strong> " . $row["matour"] . "</p>";
+        echo "<p><strong>Tên Tour:</strong> " . $row["tentour"] . "</p>";
+        echo "<p><strong>Địa Điểm:</strong> " . $row["diadiem"] . "</p>";
+        echo "<p><strong>Thời Gian:</strong> " . $row["thoigian"] . "</p>";
+        echo "<p><strong>Giá Vé:</strong> " . $row["giave"] . "</p>";
+        echo "<button> <a href='dattour.php?matour=" . $row["matour"] . "' >Đặt Tour</a></button>";
+        echo "</div>";
     }
     ?>
-    <button onclick="window.location.href='index.php'">Quay Về Trang Chủ</button>
+    <a href="index.php"> <button>Thoát </button> </a>
 </div>
 </body>
 </html>

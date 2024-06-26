@@ -16,8 +16,6 @@ if (mysqli_num_rows($result) > 0) { // Kiểm tra nếu có dòng kết quả tr
         echo "<td><img src='images/KS/" . $row["hinhanh"] . "' alt='Hình Ảnh Khách Sạn' style='width: 150px; height: auto;'></td>";
         echo "<p><strong>Tên Khách Sạn:</strong> " . $row["tenkhachsan"] . "</p>";
         echo "<p><strong>Địa Chỉ:</strong> " . $row["diachi"] . "</p>";
-        echo "<p><strong>Loại Phòng:</strong> " . $row["loaiphong"] . "</p>";
-        echo "<p><strong>Số Phòng:</strong> " . $row["sophong"] . "</p>";
         echo "<p><strong>Giá Phòng:</strong> " . $row["giaphong"] . "</p>";
         echo "<p><a href='chitietkhachsan.php?makhachsan=" . $row["makhachsan"] . "'>Xem Chi Tiết</a></p>";
         echo "<button> <a href='datkhachsan.php?makhachsan=" . $row["makhachsan"] . "' >Đặt Phòng</a></button>";

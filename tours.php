@@ -28,7 +28,7 @@ if (mysqli_num_rows($result) > 0) {
     // Lặp qua từng dòng dữ liệu và hiển thị ra HTML
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<tr>";
-        echo "<td><img src='images/TOUR/" . $row["hinhanh"] . ".PNG' alt='Hình Ảnh Tour'></td>";
+        echo "<td><img src='images/TOUR/" . $row["hinhanh"] . "' alt='Hình Ảnh Tour' style='width: 150px; height: auto;'>";
         echo "<td>" . $row["matour"] . "</td>";
         echo "<td>" . $row["tentour"] . "</td>";
         echo "<td>" . $row["diadiem"] . "</td>";
