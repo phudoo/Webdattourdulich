@@ -9,7 +9,7 @@ $filter = isset($_GET['filter']) ? $_GET['filter'] : 'tour';
 $sort_order = isset($_GET['sort_order']) ? $_GET['sort_order'] : 'asc';
 
 $itemsPerPage = 4;
-$keyword = $conn->real_escape_string($keyword);
+$keyword = $conn->real_escape_string($keyword); // Using -> for mysqli object
 $sort_order = ($sort_order === 'desc') ? 'DESC' : 'ASC';
 
 // Determine the current page
@@ -24,11 +24,11 @@ if ($filter === 'tour') {
     $sql = "SELECT * FROM khachsan WHERE tenkhachsan LIKE '%$keyword%' OR diachi LIKE '%$keyword%' ORDER BY giaphong $sort_order LIMIT $itemsPerPage OFFSET $offset";
 }
 
-$countResult = $conn->query($countSql);
-$totalItems = $countResult->fetch_assoc()['total'];
+$countResult = $conn->query($countSql); // Using -> for mysqli object
+$totalItems = $countResult->fetch_assoc()['total']; // Using -> for mysqli object
 $totalPages = ceil($totalItems / $itemsPerPage);
 
-$result = $conn->query($sql);
+$result = $conn->query($sql); // Using -> for mysqli object
 ?>
 
 <!DOCTYPE html>
@@ -72,8 +72,8 @@ $result = $conn->query($sql);
 
 <div class="result-grid">
     <?php
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
+    if ($result->num_rows > 0) { // Using -> for mysqli object
+        while ($row = $result->fetch_assoc()) { // Using -> for mysqli object
             if ($filter === 'tour') {
                 echo "<div class='tour-item'>";
                 echo "<img class='avatar' src='" . $row["hinhanh"] . "' alt='Hình Ảnh Tour' style='width: 150px; height: auto;'>";

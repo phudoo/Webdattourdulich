@@ -1,18 +1,21 @@
 <?php
+
 if (session_status() == PHP_SESSION_NONE) {
-    session_start(); // Start the session if it's not already started
+    session_start();
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "dulich3";
+// Thông tin kết nối đến cơ sở dữ liệu MySQL
+$servername = "localhost";  // Tên máy chủ MySQL
+$username = "root";         // Tên người dùng MySQL
+$password = "";             // Mật khẩu MySQL
+$dbname = "dbdulich";        // Tên cơ sở dữ liệu MySQL
 
-// Create connection using mysqli_connect
+// Tạo kết nối đến cơ sở dữ liệu MySQL
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-// Check connection
+// Kiểm tra kết nối đến cơ sở dữ liệu
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
 ?>

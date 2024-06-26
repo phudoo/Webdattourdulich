@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include 'db.php'; // Kết nối CSDL
 include 'php/xldangnhap.php'; 
 
@@ -14,10 +14,7 @@ include 'php/xldangnhap.php';
 </head>
 <body>
   <h2>Đăng Nhập</h2>
-  <?php if(isset($_SESSION['login_message'])) { ?>
-    <div class="message"><?php echo $_SESSION['login_message']; ?></div>
-    <?php unset($_SESSION['login_message']); ?>
-  <?php } ?>
+
   <form method="post" action="dangnhap.php">
     <label for="tentaikhoan">Tên Tài Khoản:</label><br>
     <input type="text" id="tentaikhoan" name="tentaikhoan"><br>
