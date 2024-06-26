@@ -26,6 +26,6 @@ if (isset($_GET['matour'])) {
 }
 
 mysqli_close($conn);
-header("Location: quanly.php");
+header("Location: quanly_tour.php");
 exit();
 ?>

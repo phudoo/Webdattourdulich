@@ -42,7 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "INSERT INTO khachsan (makhachsan, tenkhachsan, diachi, sophong, loaiphong, giaphong, hinhanh) VALUES ('$makhachsan', '$tenkhachsan', '$diachi', $sophong, '$loaiphong', $giaphong, '$name_file')";
             
             if (mysqli_query($conn, $sql)) {
-                echo "Thêm mới khách sạn thành công!";
+                echo "<script>
+                alert('Thêm mới khách sạn thành công!');
+                window.location.href = 'quanly_khachsan.php';
+              </script>";
+        exit();
             } else {
                 echo "Lỗi: " . $sql . "<br>" . mysqli_error($conn);
             }
@@ -60,7 +64,7 @@ mysqli_close($conn);
 <head>
   <meta charset="UTF-8">
   <title>Thêm Mới Khách Sạn</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/edit.css">
 </head>
 <body>
   <h2>Thêm Mới Khách Sạn</h2>
@@ -89,7 +93,8 @@ mysqli_close($conn);
     <label for="hinhanh">Hình Ảnh:</label>
     <input type="file" name="hinhanh" id="hinhanh" accept="image/*" required>
     <br>
-    <button type="submit">Thêm Khách Sạn</button>
+    <input type="submit" value="Thêm">
+    <a href="quanly_khachsan.php" class="btn-cancel">Hủy</a>
   </form>
 </body>
 </html>

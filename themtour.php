@@ -41,7 +41,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "INSERT INTO tours (matour, tentour, diadiem, thoigian, giave, hinhanh) VALUES ('$matour', '$tentour', '$diadiem', '$thoigian', $giave, '$name_file')";
             
             if (mysqli_query($conn, $sql)) {
-                echo "Thêm mới tour du lịch thành công!";
+                echo "<script>
+                alert('Thêm mới tour thành công!');
+                window.location.href = 'quanly_tour.php';
+              </script>";
+        exit();
             } else {
                 echo "Lỗi: " . mysqli_error($conn);
             }
@@ -59,7 +63,7 @@ mysqli_close($conn);
 <head>
   <meta charset="UTF-8">
   <title>Thêm Mới Tour Du Lịch</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/edit.css">
 </head>
 <body>
   <h2>Thêm Mới Tour Du Lịch</h2>
@@ -82,7 +86,8 @@ mysqli_close($conn);
     <label for="hinhanh">Hình Ảnh:</label>
     <input type="file" name="hinhanh" id="hinhanh" accept="image/*" required>
     <br>
-    <button type="submit" name="submit">Thêm Tour</button>
+    <input type="submit" value="Thêm">
+    <a href="quanly_tour.php" class="btn-cancel">Hủy</a>
   </form>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 include 'db.php';
+include 'quanly.php';
 
 // Kiểm tra xem người dùng đã đăng nhập với tài khoản admin chưa
 if (session_status() === PHP_SESSION_NONE) {
@@ -10,8 +11,21 @@ if (!isset($_SESSION['tentaikhoan']) || $_SESSION['tentaikhoan'] != 'admin') {
     exit();
 }
 
-// Lấy danh sách khách sạn từ cơ sở dữ liệu
-$sql_hotels = "SELECT * FROM khachsan";
+// Thiết lập số mục hiển thị trên mỗi trang
+$itemsPerPage = 5;
+
+// Tính tổng số trang
+$sql_total = "SELECT COUNT(*) as total FROM khachsan";
+$result_total = mysqli_query($conn, $sql_total);
+$totalRows = mysqli_fetch_assoc($result_total)['total'];
+$totalPages = ceil($totalRows / $itemsPerPage);
+
+// Lấy trang hiện tại từ URL
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($current_page - 1) * $itemsPerPage;
+
+// Lấy danh sách khách sạn từ cơ sở dữ liệu với phân trang
+$sql_hotels = "SELECT * FROM khachsan LIMIT $offset, $itemsPerPage";
 $result_hotels = mysqli_query($conn, $sql_hotels);
 ?>
 
@@ -20,7 +34,7 @@ $result_hotels = mysqli_query($conn, $sql_hotels);
 <head>
   <meta charset="UTF-8">
   <title>Quản Lý Khách Sạn</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/quanly.css">
 </head>
 <body>
   <h2>Quản Lý Khách Sạn</h2>
@@ -56,5 +70,10 @@ $result_hotels = mysqli_query($conn, $sql_hotels);
     }
     ?>
   </table>
+  <div class="pagination">
+    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+      <a href="?page=<?php echo $i; ?>"<?php if ($i == $current_page) echo ' class="active"'; ?>><?php echo $i; ?></a>
+    <?php endfor; ?>
+  </div>
 </body>
 </html>

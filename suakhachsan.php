@@ -10,6 +10,23 @@ if (!isset($_SESSION['tentaikhoan']) || $_SESSION['tentaikhoan'] != 'admin') {
     exit();
 }
 
+// Lấy thông tin khách sạn từ cơ sở dữ liệu
+if (isset($_GET["makhachsan"])) {
+    $makhachsan = $_GET["makhachsan"];
+    $sql = "SELECT * FROM khachsan WHERE makhachsan='$makhachsan'";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+    } else {
+        echo "Không tìm thấy khách sạn.";
+        exit();
+    }
+} else {
+    echo "Không có mã khách sạn.";
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $makhachsan = $_POST["makhachsan"];
     $tenkhachsan = $_POST["tenkhachsan"];
@@ -43,7 +60,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "UPDATE khachsan SET tenkhachsan='$tenkhachsan', diachi='$diachi', sophong=$sophong, loaiphong='$loaiphong', giaphong=$giaphong $update_image WHERE makhachsan='$makhachsan'";
     
     if (mysqli_query($conn, $sql)) {
-        echo "Cập nhật khách sạn thành công!";
+        echo "<script>
+                alert('Cập nhật khách sạn thành công!');
+                window.location.href = 'quanly_khachsan.php';
+              </script>";
+        exit();
     } else {
         echo "Lỗi: " . $sql . "<br>" . mysqli_error($conn);
     }
@@ -51,22 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_close($conn);
 }
 
-// Lấy thông tin khách sạn từ cơ sở dữ liệu
-if (isset($_GET["makhachsan"])) {
-    $makhachsan = $_GET["makhachsan"];
-    $sql = "SELECT * FROM khachsan WHERE makhachsan='$makhachsan'";
-    $result = mysqli_query($conn, $sql);
 
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-    } else {
-        echo "Không tìm thấy khách sạn.";
-        exit();
-    }
-} else {
-    echo "Không có mã khách sạn.";
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -74,11 +80,11 @@ if (isset($_GET["makhachsan"])) {
 <head>
   <meta charset="UTF-8">
   <title>Chỉnh Sửa Khách Sạn</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/edit.css">
 </head>
 <body>
   <h2>Chỉnh Sửa Khách Sạn</h2>
-  <form method="post" action="suakhachsan.php" enctype="multipart/form-data">
+  <form method="post" action="suakhachsan.php?makhachsan=<?php echo $row['makhachsan']; ?>" enctype="multipart/form-data">
     <input type="hidden" name="makhachsan" value="<?php echo $row['makhachsan']; ?>">
     <label for="tenkhachsan">Tên Khách Sạn:</label>
     <input type="text" name="tenkhachsan" id="tenkhachsan" value="<?php echo $row['tenkhachsan']; ?>" required>
@@ -105,7 +111,8 @@ if (isset($_GET["makhachsan"])) {
         <img src="images/KS/<?php echo $row['hinhanh']; ?>" alt="Hình ảnh khách sạn" style="max-width: 200px; max-height: 200px;">
     <?php endif; ?>
     <br>
-    <button type="submit">Lưu Thay Đổi</button>
+    <input type="submit" value="Cập nhật">
+    <a href="quanly_khachsan.php" class="btn-cancel">Hủy</a>
   </form>
 </body>
 </html>

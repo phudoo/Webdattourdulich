@@ -59,7 +59,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "UPDATE tours SET tentour='$tentour', diadiem='$diadiem', thoigian='$thoigian', giave=$giave, hinhanh='$hinhanh' WHERE matour='$matour'";
     
     if (mysqli_query($conn, $sql)) {
-        echo "Cập nhật tour du lịch thành công!";
+        echo "<script>
+                alert('Cập nhật tour thành công!');
+                window.location.href = 'quanly_tour.php';
+              </script>";
+        exit();
     } else {
         echo "Lỗi: " . mysqli_error($conn);
     }
@@ -73,7 +77,7 @@ mysqli_close($conn);
 <head>
   <meta charset="UTF-8">
   <title>Chỉnh Sửa Tour Du Lịch</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/edit.css">
 </head>
 <body>
   <h2>Chỉnh Sửa Tour Du Lịch</h2>
@@ -98,7 +102,8 @@ mysqli_close($conn);
         <img src="images/TOUR/<?php echo $row['hinhanh']; ?>" alt="Hình ảnh tour du lịch" style="max-width: 200px; max-height: 200px;">
     <?php endif; ?>
     <br>
-    <button type="submit">Lưu Thay Đổi</button>
+    <input type="submit" value="Cập nhật">
+    <a href="quanly_tour.php" class="btn-cancel">Hủy</a>
   </form>
 </body>
 </html>

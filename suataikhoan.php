@@ -10,7 +10,13 @@ if (!isset($_SESSION['tentaikhoan'])) {
     exit();
 }
 
-$tentaikhoan = $_SESSION['tentaikhoan'];
+// Lấy tài khoản từ URL
+if (isset($_GET['tentaikhoan'])) {
+    $tentaikhoan = $_GET['tentaikhoan'];
+} else {
+    echo "Không có tài khoản nào được chọn.";
+    exit();
+}
 
 // Fetch the user data
 $sql = "SELECT * FROM taikhoan WHERE tentaikhoan = '$tentaikhoan'";
@@ -33,10 +39,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "UPDATE taikhoan SET email='$email', sdt='$sdt', diachi='$diachi', matkhau='$matkhau' WHERE tentaikhoan='$tentaikhoan'";
 
     if (mysqli_query($conn, $sql)) {
-        echo "Cập nhật tài khoản thành công!";
-    } else {
-        echo "Lỗi: " . mysqli_error($conn);
-    }
+      echo "<script>
+              alert('Cập nhật tài khoản thành công!');
+              window.location.href = 'quanly_taikhoan.php';
+            </script>";
+      exit();
+  } else {
+      echo "Lỗi: " . mysqli_error($conn);
+  }
 }
 
 mysqli_close($conn);
@@ -47,11 +57,11 @@ mysqli_close($conn);
 <head>
   <meta charset="UTF-8">
   <title>Chỉnh Sửa Tài Khoản</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/edit.css">
 </head>
 <body>
   <h2>Chỉnh Sửa Tài Khoản</h2>
-  <form method="post" action="suataikhoan.php">
+  <form method="post" action="suataikhoan.php?tentaikhoan=<?php echo urlencode($tentaikhoan); ?>">
     <input type="hidden" name="tentaikhoan" value="<?php echo $row['tentaikhoan']; ?>">
     <label for="email">Email:</label>
     <input type="email" name="email" id="email" value="<?php echo $row['email']; ?>" required>
@@ -65,7 +75,8 @@ mysqli_close($conn);
     <label for="matkhau">Mật Khẩu:</label>
     <input type="text" name="matkhau" id="matkhau" value="<?php echo $row['matkhau']; ?>" required>
     <br>
-    <input type="submit" value="Cập Nhật">
+    <input type="submit" value="Cập nhật">
+    <a href="quanly_taikhoan.php" class="btn-cancel">Hủy</a>
   </form>
 </body>
 </html>
