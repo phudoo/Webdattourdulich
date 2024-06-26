@@ -33,7 +33,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Xem Chi Tiết Tour</title>
-    <link rel="stylesheet" href="css/csstrangchu.css">
+    <link rel="stylesheet" href="css/trangchu.css">
     <style>
         .tour-detail {
             text-align: center;

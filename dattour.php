@@ -7,12 +7,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $matour = $_POST['matour'];
         
         // Truy vấn CSDL để lấy thông tin của tour được chọn
-        $sql = "SELECT * FROM tours WHERE matour = '$matour'";
-        $result = $conn->query($sql);
+        $sql = "SELECT * FROM tours WHERE matour = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $matour);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
-        if ($result->num_rows > 0) {
+        if (mysqli_num_rows($result) > 0) {
             // Nếu tồn tại thông tin của tour trong cơ sở dữ liệu
-            $row = $result->fetch_assoc();
+            $row = mysqli_fetch_assoc($result);
             $start_date = $_POST["start_date"];
             $quantity = $_POST["quantity"];
             $tentaikhoan = isset($_SESSION['tentaikhoan']) ? $_SESSION['tentaikhoan'] : 'Guest';
@@ -21,10 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $gia_ve = $row["giave"] * $quantity;
 
             // Lưu thông tin đặt tour vào bảng dattour
-            $insert_sql = "INSERT INTO dattour (matour, tentour, diadiem, thoigian, soluongnguoi, tentaikhoan, ngaybatdau, giave) VALUES ('$matour', '{$row["tentour"]}', '{$row["diadiem"]}', '{$row["thoigian"]}', '$quantity', '$tentaikhoan', '$start_date', '$gia_ve')";
-            
+            $insert_sql = "INSERT INTO dattour (matour, tentour, diadiem, thoigian, soluongnguoi, tentaikhoan, ngaybatdau, giave) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt_insert = mysqli_prepare($conn, $insert_sql);
+            mysqli_stmt_bind_param($stmt_insert, "isssisss", $matour, $row["tentour"], $row["diadiem"], $row["thoigian"], $quantity, $tentaikhoan, $start_date, $gia_ve);
+
             // Thực hiện truy vấn insert và kiểm tra kết quả
-            if ($conn->query($insert_sql) === TRUE) {
+            if (mysqli_stmt_execute($stmt_insert)) {
                 // Nếu insert thành công, hiển thị thông tin xác nhận
                 echo "<h2>Xác Nhận Đặt Tour</h2>";
                 echo "<p><strong>Mã Tour:</strong> " . $row["matour"] . "</p>";
@@ -35,12 +40,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<p>Đặt tour thành công!</p>";
             } else {
                 // Nếu có lỗi trong quá trình insert, hiển thị thông báo lỗi
-                echo "<p class='error-message'>Có lỗi xảy ra khi đặt tour: " . $conn->error . "</p>";
+                echo "<p class='error-message'>Có lỗi xảy ra khi đặt tour: " . mysqli_error($conn) . "</p>";
             }
+
+            mysqli_stmt_close($stmt_insert);
         } else {
             // Nếu không tìm thấy thông tin của tour trong cơ sở dữ liệu
             echo "<p class='error-message'>Không tìm thấy thông tin của tour.</p>";
         }
+
+        mysqli_stmt_close($stmt);
     } else {
         // Nếu không có mã tour được chọn trong POST data
         echo "<p class='error-message'>Không có mã tour được chọn.</p>";
@@ -51,12 +60,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $matour = $_GET['matour'];
         
         // Truy vấn CSDL để lấy thông tin của tour được chọn
-        $sql = "SELECT * FROM tours WHERE matour = '$matour'";
-        $result = $conn->query($sql);
+        $sql = "SELECT * FROM tours WHERE matour = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $matour);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
 
-        if ($result->num_rows > 0) {
+        if (mysqli_num_rows($result) > 0) {
             // Nếu tồn tại thông tin của tour trong cơ sở dữ liệu
-            $row = $result->fetch_assoc();
+            $row = mysqli_fetch_assoc($result);
             $tentaikhoan = isset($_SESSION['tentaikhoan']) ? $_SESSION['tentaikhoan'] : 'Guest';
 ?>
 <!DOCTYPE html>
@@ -80,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <p><strong>Giá Vé:</strong> <?php echo $gia_ve; ?></p>
     <p><strong>Tài Khoản:</strong> <?php echo $tentaikhoan; ?></p>
     <!-- Form để nhập thông tin đặt tour -->
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form action="<?php echo ($_SERVER["PHP_SELF"]); ?>" method="post">
         <input type="hidden" name="matour" value="<?php echo $row["matour"]; ?>">
         <label for="start_date">Ngày Bắt Đầu:</label>
         <input type="date" id="start_date" name="start_date" required><br>
@@ -96,6 +108,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Nếu không tìm thấy thông tin của tour trong cơ sở dữ liệu
             echo "<p class='error-message'>Không tìm thấy thông tin của tour.</p>";
         }
+
+        mysqli_stmt_close($stmt);
     } else {
         // Nếu không có mã tour được chọn trong query string
         echo "<p class='error-message'>Không có mã tour được chọn.</p>";

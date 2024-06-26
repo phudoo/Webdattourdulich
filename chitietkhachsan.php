@@ -33,7 +33,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Thông Tin Chi Tiết Khách Sạn</title>
-    <link rel="stylesheet" href="css/csstrangchu.css">
+    <link rel="stylesheet" href="css/trangchu.css">
     <style>
         .hotel-detail {
             text-align: center;
