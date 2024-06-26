@@ -44,7 +44,7 @@ $result_tours = mysqli_query($conn, $sql_tours);
       <th>Mã Tour</th>
       <th>Tên Tour</th>
       <th>Địa Điểm</th>
-      <th>Thời Gian</nh>
+      <th>Thời Gian</th>
       <th>Giá Vé</th>
       <th>Hành Động</th>
     </tr>
