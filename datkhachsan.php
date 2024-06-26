@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'db.php'; // Kết nối CSDL
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -68,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Đặt Phòng</title>
-    <link rel="stylesheet" href="css/cssdatkhachsan.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <h2>Thông Tin Khách Sạn</h2>

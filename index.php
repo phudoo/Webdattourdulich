@@ -10,8 +10,7 @@ include 'php/kiemtrasession.php';
 <head>
     <meta charset="UTF-8">
     <title>Trang Chủ Đặt Tour</title>
-    <link rel="stylesheet" href="css/csstrangchu.css">
-    <script src="js/hienlichsu.js"></script>
+    <link rel="stylesheet" href="css/trangchu.css">
 </head>
 <body>
 <header>

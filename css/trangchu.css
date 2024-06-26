@@ -1,0 +1,157 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6; /* Đặt độ cao dòng cho body */
+  background-color: #f4f4f4; 
+  color: #333; 
+}
+
+
+header {
+  background-color: #1e88e5; 
+  color: white; 
+  padding: 10px; /* Đệm bên trong header */
+}
+
+header nav ul {
+  list-style: none; /* Loại bỏ dấu đầu dòng của danh sách */
+  display: flex; /* Sắp xếp các mục theo chiều ngang */
+  justify-content: center; /* Căn giữa các mục */
+}
+
+header nav ul li {
+  margin: 0 1.5rem; /* Khoảng cách giữa các mục điều hướng */
+}
+
+header nav ul li a {
+  color: white; 
+  text-decoration: none; 
+  font-weight: bold;
+}
+
+header nav ul li a:hover {
+  color: #ffeb3b; 
+  text-decoration: underline; 
+}
+
+/* Heading styles */
+h1, h2 {
+  text-align: center;
+  margin: 30px;
+  color: #1e88e5; 
+}
+
+/* Link styles */
+a {
+  color: black; 
+  text-decoration: none; 
+}
+
+
+.tour-grid, .hotel-grid {
+  display: grid; /* Sắp xếp các phần tử theo lưới */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Cột tự động thay đổi kích thước */
+  gap: 20px; /* Khoảng cách giữa các phần tử */
+  justify-items: center; /* Căn giữa các phần tử */
+  padding: 10px; 
+}
+
+.tour-item, .hotel-item {
+  width: 100%; 
+  background-color: white; 
+  padding: 20px; 
+  border-radius: 10px; 
+}
+
+.tour-item:hover, .hotel-item:hover {
+  transform: translateY(-10px); /* Hiệu ứng nâng lên khi hover */
+}
+
+.tour-item img, .hotel-item img {
+  width: 100%; 
+  height: auto; 
+  border-radius: 10px; 
+}
+
+button {
+  background-color: #1e88e5; 
+  color: white; 
+  border: none; 
+  padding: 10px 20px; 
+  border-radius: 5px; 
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+
+.pagination {
+  text-align: center; 
+  margin: 2rem 0; 
+}
+
+.pagination a {
+  margin: 0 5px;
+  padding: 10px 15px; 
+  border: 1px solid #1e88e5; 
+  color: #1e88e5;
+  text-decoration: none;
+  border-radius: 5px; 
+  
+}
+
+.pagination a:hover {
+  background-color: #1e88e5; 
+  color: white; 
+}
+
+
+
+.user-actions {
+  display: flex; 
+  align-items: center; 
+  margin-left: auto;
+  color:#333
+}
+
+
+footer {
+  text-align: center;
+  padding: 10px; 
+  background-color: #1e88e5; 
+  color: white;
+}
+
+
+.booking-history {
+  display: none; 
+  position: fixed; 
+  top: 50%; /* Canh vị trí theo chiều dọc là giữa màn hình */
+  left: 50%; /* Canh vị trí theo chiều ngang là giữa màn hình */
+  transform: translate(-50%, -50%); /* Dịch chuyển popup để căn giữa */
+  background-color: #fff; 
+  border: 1px solid #ccc; 
+  padding: 20px;
+  max-width: 400px; 
+  width: 100%; 
+  z-index: 1000; /* Độ sâu z để hiển thị trên các phần tử khác */
+  border-radius: 5px; 
+}
+
+/* Hiển thị booking history khi checkbox được chọn */
+#toggle-history:checked ~ .booking-history {
+  display: block;
+}
+
+/* Ẩn checkbox */
+#toggle-history {
+  display: none;
+}

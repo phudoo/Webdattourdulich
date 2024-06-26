@@ -1,5 +1,4 @@
 <?php
-session_start();  // Bắt đầu phiên làm việc session để lưu trữ thông tin người dùng
 
 include 'db.php'; // Kết nối đến cơ sở dữ liệu để thực hiện các truy vấn
 
@@ -65,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Đặt Tour</title>
-    <link rel="stylesheet" href="css/cssdattour.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <div class="container">

@@ -1,5 +1,5 @@
 <?php
-include 'db.php'; // Đảm bảo rằng file db.php đã được bao gồm và kết nối đã được thiết lập
+include 'db.php'; 
 
 $sql = "SELECT * FROM tours";
 $result = mysqli_query($conn, $sql); // Thực thi câu truy vấn và lấy kết quả
