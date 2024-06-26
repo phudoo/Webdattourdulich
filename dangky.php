@@ -34,9 +34,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (mysqli_query($conn, $sql)) {
           // Lưu thông báo đăng ký thành công vào session
-          $_SESSION['register_message'] = "Đăng ký tài khoản thành công!";
+          // $_SESSION['register_message'] = "Đăng ký tài khoản thành công!";
           // Chuyển hướng đến trang đăng nhập sau khi đăng ký thành công
-          header("Location: dangnhap.php");
+          echo "<script>
+                  alert('Đăng ký tài khoản thành công!');
+                  window.location.href = 'dangnhap.php';
+                </script>";
           exit();
         } else {
           echo "Lỗi: " . $sql . "<br>" . mysqli_error($conn);
